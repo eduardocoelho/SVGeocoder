@@ -13,6 +13,7 @@
 
 
 - (void)reverseGeocode {
+    [SVGeocoder setLanguage:@"pt"];
     [SVGeocoder reverseGeocode:CLLocationCoordinate2DMake(latField.text.floatValue, lngField.text.floatValue)
                     completion:^(NSArray *placemarks, NSError *error) {
                         UIAlertView *alertView;

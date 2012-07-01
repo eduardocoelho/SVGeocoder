@@ -35,6 +35,16 @@ typedef enum {
 
 - (void)cancel;
 
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+// Changes made by eduardocoelho:
+// - Since SVGeocoder does not conform to the Open-closed principle,
+//   we must provide a class-based (shared) optional locale customization.
++ (void)setLanguage:(NSString*)language;
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
+
 // old API; these methods will soon get deprecated
 
 @property (nonatomic, assign) id<SVGeocoderDelegate> delegate;

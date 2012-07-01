@@ -48,6 +48,25 @@ typedef NSUInteger SVGeocoderRequestState;
 
 @implementation SVGeocoder
 
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+// Changes made by eduardocoelho
+static NSString* _language = Nil;
+
++ (void)setLanguage:(NSString*)language {
+    _language = [language copy];
+}
+
++ (NSString*)language {
+    return _language;
+}
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
+
+
+
 @synthesize delegate, requestString, responseData, connection, request, state, timeoutTimer, completionBlock;
 @synthesize querying = _querying;
 
@@ -154,7 +173,20 @@ typedef NSUInteger SVGeocoderRequestState;
     [self.request setTimeoutInterval:kSVGeocoderTimeoutInterval];
 
     [parameters setValue:@"true" forKey:@"sensor"];
-    [parameters setValue:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode] forKey:@"language"];
+    
+    ////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    // Changes made by eduardocoelho
+    NSString* language = [SVGeocoder language];
+    if ([language length] > 0) {
+        [parameters setValue:language forKey:@"language"];
+    } else {
+        [parameters setValue:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode] forKey:@"language"];
+    }
+    
+    ////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    
     [self addParametersToRequest:parameters];
         
     self.state = SVGeocoderRequestStateReady;
